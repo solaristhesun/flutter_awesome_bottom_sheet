@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 /// Custom color class for multiple theme color
 class CustomSheetColor {
-  Color mainColor;
-  Color accentColor;
-  Color iconColor;
+  final Color mainColor;
+  final Color accentColor;
+  final Color iconColor;
+  final Color textColor;
 
-  CustomSheetColor(
-      {required this.mainColor,
-      required this.accentColor,
-      required this.iconColor});
+  CustomSheetColor({
+    required this.mainColor,
+    required this.accentColor,
+    required this.iconColor,
+    this.textColor = Colors.white,
+  });
 }
 
 class AwesomeBottomSheet {
@@ -19,8 +22,7 @@ class AwesomeBottomSheet {
     required Text description,
     required CustomSheetColor color,
     required AwesomeSheetAction positive,
-    EdgeInsets? contentPadding =
-        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
     EdgeInsets? actionPadding = const EdgeInsets.all(8.0),
     AwesomeSheetAction? negative,
     IconData? icon,
@@ -65,14 +67,13 @@ class AwesomeBottomSheet {
                         : DefaultTextStyle(
                             style: TextStyle(
                               fontSize: titleFontSize,
-                              color: Colors.white,
+                              color: color.textColor,
                               fontWeight: FontWeight.bold,
                               fontFamily: fontFamily,
                             ),
                             textAlign: TextAlign.start,
                             child: title),
-                    _buildContent(color, description, icon, fontFamily,
-                        descriptionFontSize, iconSize)
+                    _buildContent(color, description, icon, fontFamily, descriptionFontSize, iconSize)
                   ],
                 ),
               ),
@@ -92,8 +93,8 @@ class AwesomeBottomSheet {
   }
 
   /// return content widget
-  _buildContent(CustomSheetColor color, Text description, IconData? icon,
-      String fontFamily, double descriptionFontSize, double iconSize) {
+  _buildContent(CustomSheetColor color, Text description, IconData? icon, String fontFamily, double descriptionFontSize,
+      double iconSize) {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SingleChildScrollView(
@@ -105,9 +106,10 @@ class AwesomeBottomSheet {
                   Expanded(
                     child: DefaultTextStyle(
                         style: TextStyle(
-                            fontSize: descriptionFontSize,
-                            color: Colors.white,
-                            fontFamily: fontFamily),
+                          fontSize: descriptionFontSize,
+                          color: color.textColor,
+                          fontFamily: fontFamily,
+                        ),
                         child: description),
                   ),
                   const SizedBox(
@@ -124,7 +126,7 @@ class AwesomeBottomSheet {
                 style: TextStyle(
                   fontSize: descriptionFontSize,
                   fontFamily: fontFamily,
-                  color: Colors.white,
+                  color: color.textColor,
                 ),
                 child: description,
               ),
